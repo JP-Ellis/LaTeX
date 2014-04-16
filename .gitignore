@@ -8,6 +8,7 @@
 *.makefile
 *.pdf
 *.synctex.gz
+*.unq
 /pgf-img/
 
 # Ignore AUCTeX folder
@@ -16,3 +17,5 @@
 # Ignore backup files and temporary files
 *~
 *#
+/test.tex
+/test.unq
