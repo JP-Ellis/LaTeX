@@ -58,9 +58,6 @@ $clean_ext .= ' %R.ist %R.xdy';
 $max_repeat = 9;
 
 # Provide support for the PGF/TikZ Externalization
-#
-# Unfortunately this appears to cause issues when the PGF/TikZ
-# externalization is not used.
 our %externalflag = ();
 
 $pdflatex = 'internal mypdflatex %O %S %B';
@@ -77,7 +74,9 @@ sub mypdflatex {
     }
     if ( !defined $externalflag->{$base} ) {
         $externalflag->{$base} = 1;
-        system ("$make -j8 -f $base.makefile");
+        if ( -e "$base.makefile" ) {
+            system ("$make -j8 -f $base.makefile");
+        }
     }
     return $?;
 }
