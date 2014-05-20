@@ -9,12 +9,12 @@ needs, most of it is written by me though some parts were originally
 sourced online.
 
 
-## document.tex
+## report.tex
 
-Provides a template for basic documents and demonstrates a few
-important features of LaTeX.  It also uses glossaries and a biblatex
-and thus external programs are required to properly compile this
-document (though this is all managed by [latexmk][latexmk]).
+Provides a template for reports and demonstrates a few important
+features of LaTeX.  It also uses glossaries and a biblatex and thus
+external programs are required to properly compile this document
+(though this is all managed by [latexmk][latexmk]).
 
 ## customizations.sty
 
