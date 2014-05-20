@@ -17,9 +17,8 @@
 % Street, Fifth Floor, Boston, MA 02110-1301 USA.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass{standalone}
+\documentclass[tikz]{standalone}
 
-\usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.10}
 
@@ -29,18 +28,22 @@
 % The system call creates the pgf-img directory if it is not present and if
 % lualatex fails to generate the graphic, the (corrupt) PDF output is deleted so
 % that the master document does not fail at importing the corrupt PDF.
-\usetikzlibrary{external}
-\tikzexternalize[
-    shell escape = -shell-escape,
-    prefix = pgf-img/
-]
-\tikzset{
-    external/.cd,
-    mode = list and make,
-    system call = {
-        lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname="\image" "\texsource" || rm "\image.pdf"
-    }
-}
+%
+% Unfortunately, the externalization is incompatible with the standalone class,
+% though the code is still here to be used in other documents.
+
+%\usetikzlibrary{external}
+%\tikzexternalize[
+%    shell escape = -shell-escape,
+%    prefix = pgf-img/
+%]
+%\tikzset{
+%    external/.cd,
+%    mode = list and make,
+%    system call = {
+%        lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname="\image" "\texsource" || rm "\image.pdf"
+%    }
+%}
 
 % pgfplots settings
 \pgfplotsset{
