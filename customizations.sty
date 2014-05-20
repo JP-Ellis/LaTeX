@@ -391,9 +391,9 @@
 %% - \e
 %%   Shorthand for '\cdot 10^'
 %%
-%% - \vt, \uv
-%%   For vector and unit vectors, displaying them in bold and with the hat as
-%%   appropriate.  The unit vectors 'i' and 'j' use the special \imath and
+%% - \vt, \uv, \ph
+%%   For vectors, unit vectors and phasors, displaying them in bold and with the
+%%   hat as appropriate.  The unit vectors 'i' and 'j' use the special \imath and
 %%   \jmath which do not feature the dot.
 %%
 %% - \dd
@@ -478,6 +478,17 @@
                 \boldsymbol{\hat{\jmath}}
             }{
                 \boldsymbol{\hat{\vt{#1}}}
+            }
+        }
+    }
+    \newcommand{\ph}[1]{
+        \ifstrequal{#1}{i}{
+            \boldsymbol{\tilde{\imath}}
+        }{
+            \ifstrequal{#1}{j}{
+                \boldsymbol{\tilde{\jmath}}
+            }{
+                \boldsymbol{\tilde{\vt{#1}}}
             }
         }
     }
