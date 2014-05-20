@@ -1,13 +1,23 @@
 # Ignore LaTeX temporary files
 *.aux
 *.auxlock
+*.bbl
+*.bcf
+*.blg
 *.fdb_latexmk
 *.figlist
 *.fls
+*.glg
+*.glo
+*.gls
+*.ist
 *.log
 *.makefile
+*.out
 *.pdf
+*.run.xml
 *.synctex.gz
+*.toc
 *.unq
 /pgf-img/
 
@@ -17,5 +27,3 @@
 # Ignore backup files and temporary files
 *~
 *#
-/test.tex
-/test.unq

@@ -1,0 +1,342 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Document template
+% Copyright (C) 2014  Joshua Ellis
+%
+% This is the template that I use for most of my documents.
+%
+%
+% This program is free software; you can redistribute it and/or modify it under
+% the terms of the GNU General Public License as published by the Free Software
+% Foundation; either version 2 of the License, or (at your option) any later
+% version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+% details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+% Street, Fifth Floor, Boston, MA 02110-1301 USA.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% HEADER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,twoside,11pt,final]{article}
+% The options are listed below, with the default (for the article class) marked
+% by '*'.
+%
+% - '10pt', 11pt, 12pt
+%   Sets the font size of the document
+%
+% - 'letterpaper', executivepaper, legalpaper, a4paper, a5paper, b5paper
+%   Sets the page size
+%
+% - twocolumn
+%   Two columns will be used through the document
+%
+% - 'oneside', twoside
+%   Formats the pages to be printed either one-sided or two-sided
+%
+% - landscape
+%   Use landscape mode
+%
+% - draft, 'final'
+%   With draft enabled, errors are indicated in the output and images are
+%   replaced by empty frames.
+
+%% Formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{geometry} % Easily change margin sizes (and many more dimensions)
+\usepackage{fancyhdr} % Nice headers
+\usepackage{multicol} % Provides {multicols}{n} for a n-column section
+\usepackage{pdflscape} % Provides {landscape} environment
+
+%\usepackage{setspace} % Line spacing
+%\singlespacing        % 1-spacing (default)
+%\onehalfspacing       % 1,5-spacing
+%\doublespacing        % 2-spacing
+
+%% Language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[UKenglish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{siunitx}
+% siunitx should be used to typeset all numbers with units.  It ensures that the
+% correct symbol is used with the correct spacing.  It also provides \ang{} to
+% specify angles (in degrees).
+
+%% Graphics & Figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[pdftex]{graphicx}   % For loading graphic files
+\usepackage{subcaption}         % Subfigures inside a figure
+%\usepackage{wrapfig}            % Small figures on side of page (use sparingly)
+
+\usepackage{tikz,pgfplots}
+\pgfplotsset{compat=1.10}
+
+% To keep the folder tidy, place all the images in the './img/' folder
+\graphicspath{{./img/}}
+
+% Set up PGF externalization
+% Note that this requires the folder pgf-img to already exist
+\usetikzlibrary{external}
+\tikzexternalize[shell escape=-shell-escape, prefix=pgf-img/]
+\tikzset{
+    external/mode=list and make,
+    external/system call={
+        lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname="\image" "\texsource" || rm "\image.pdf"},
+}
+
+% Place customizations for TikZ and PGFplots here
+% \tikzset{
+%    
+% }
+
+% \pgfplotsset{
+%    
+% }
+
+%% Math Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath,amsfonts,amssymb} % The core packages for math
+\usepackage{mathtools}                % Extra features
+%\usepackage{cancel}                   % To show cancellations with \cancel{}
+
+% Add tags to referenced lines only
+\mathtoolsset{showonlyrefs,showmanualtags}
+% Define \withnumber which forces a single line to have a number
+\def\withnumber{\refstepcounter{equation}\tag{\theequation}}
+
+% Allows page breaks in math (1 = avoid if possible, 4 = whenever)
+% Page breaks can be avoided at particular places by using \\* 
+\allowdisplaybreaks[2]
+
+%% Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{array}     % New column types, including >{}x<{}
+\usepackage{booktabs}  % Provides nicer horizontal lines
+\usepackage{multirow}  % Allows cells to span multiple rows
+%\usepackage{longtable} % Allows for tables to span multiple pages
+
+% Define the maths version of clr columns.
+\newcolumntype{C}{>{\(}c<{\)}}
+\newcolumntype{L}{>{\(}l<{\)}}
+\newcolumntype{R}{>{\(}r<{\)}}
+
+%% Other Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage[version=3]{mhchem} % For chemistry-related stuff
+\usepackage{enumitem}    % Can customize {enumerate} and {itemize} lists
+%\usepackage{algorithm2e} % To write up algorithms
+\usepackage{lastpage}    % Allows referencing the last page
+\usepackage{hyperref}    % Automatically inserts hyperlinks.
+%\usepackage{cleveref}    % A very good way to manage references, but
+                         % incompatible with mathtools' showonlyrefs and
+                         % showmanualtags.
+\usepackage{lipsum} % Allows for placeholder text
+
+%% Glossary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This package requires makeglossaries to be run after the initial run of LaTeX
+% so that the glossary is generated and the a second run of LaTeX is need to
+% included the newly generated glossary.
+
+% hyperref should be loaded first
+\usepackage[toc]{glossaries}
+\renewcommand*{\glstextformat}[1]{\textsf{#1}}
+\setglossarystyle{index}
+
+\loadglsentries{glossary}
+
+\makeglossaries
+
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% hyperref should be loaded first
+\usepackage[
+	backend=biber,
+    autocite=inline,
+    style=phys,
+    biblabel=brackets,
+]{biblatex}
+
+\addbibresource{references.bib}
+
+%% Other modifications
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{customizations}
+
+% Modify the skip after each paragraph
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\setlength{\headheight}{25.23pt}
+
+\definecolor{link-color}{RGB}{0 0 75}
+\definecolor{cite-color}{RGB}{75 0 25}
+\definecolor{file-color}{RGB}{75 25 0}
+\definecolor{url-color}{RGB}{75 25 0}
+\definecolor{link-border-color}{RGB}{100 200 255}
+\definecolor{cite-border-color}{RGB}{255 0 150}
+\definecolor{url-border-color}{RGB}{255 150 0}
+
+\hypersetup{
+    colorlinks=true,      % If colorlinks is false, a border is drawn instead
+                          % which does not appear in print.  If it is true, the
+                          % font is coloured and does appear in print.
+    linkcolor=link-color,
+    citecolor=cite-color,
+    filecolor=file-color,
+    urlcolor=url-color,
+    linkbordercolor=link-border-color,
+    citebordercolor=cite-border-color,
+    urlbordercolor=url-border-color,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%% Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{empty}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{titlepage}
+
+    \begin{center}
+        \textsc{\huge Lorem Ipsum}\\[3cm]
+
+        \HRule \\[0.5cm]
+        \Huge \textbf{Example Document}\\[0.5cm]
+        \HRule \\[1.5cm]
+
+        \begin{minipage}{0.4\textwidth}
+        \begin{center}
+
+        \large By \\[0.75cm]
+        \huge Joshua \scshape Ellis \\[0.5cm]
+        \normalsize \normalfont Bachelor of Science \\
+        The University of Melbourne \\
+
+        \end{center}
+        \end{minipage}
+
+        \vfill
+
+        \large \today
+    \end{center}
+
+\newpage
+
+\end{titlepage}
+
+%% Table of Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{empty}
+\tableofcontents
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+
+
+\section{Introduction}
+
+\Gls{latex} is a program designed to typeset documents.  Unlike programs such as
+\href{http://office.microsoft.com/en-au/word/}{Microsoft Word} and
+\href{http://www.libreoffice.org/discover/writer/}{LibreOffice Writer}, LaTeX
+makes an effort to ensure that everything is placed correctly with the
+appropriate spacing.
+
+\subsection{Mathematics}
+\label{subsec:mathematics}
+
+LaTeX also handles mathematics very nicely.  For example, I can write Einstein's
+most famous equation inline: \(E = mc^2\), and the size of the symbols is scaled
+appropriate, as demonstrated with Newton's second law: \(\vt F = \ddfrac{\vt
+    p}{t}\).  Contrast the small fraction with the alternative inline notation:
+\(\vt F = \dd \vt p / \dd t\), where no scaling is required.
+
+Equations can also be placed on the own line within a text if they are a little
+cumbersome to write inline, such the Schr\"odinger equation:
+\begin{equation}
+    \label{eq:schrodinger_equation}
+    i \hbar \pfrac{\Psi(\vt x, t)}{t} = - \frac{\hbar^2}{2m} \nabla^2 \Psi(\vt x, t) + V(\vt x, t) \Psi(\vt x, t)
+\end{equation}
+and if I have multiple equations, they can be aligned nicely as demonstrated
+with Maxwell's equations:
+\begin{subequations}
+    \label{eq:Maxwell_equations}
+    \begin{align}
+        \label{eq:Gauss_law}\withnumber
+        \nabla \cdot \vt E &= \frac{\rho}{\varepsilon_0} \\
+        \label{eq:Gauss_law_magnetism}\withnumber
+        \nabla \cdot \vt B &= 0 \\
+        \label{eq:Maxwell-Faraday_equation}\withnumber
+        \nabla \times \vt E &= - \pfrac{\vt B}{t} \\
+        \label{eq:Ampere_law}\withnumber
+        \nabla \times \vt B &= \mu_0 \vt J + \mu_0 \varepsilon_0 \pfrac{\vt E}{t}
+    \end{align}
+\end{subequations}
+
+\gls{latex} also takes care of all the referencing with \verb|\label{}| and
+\verb|\ref{}|.  Schr\"odinger's equation for example is equation
+\eqref{eq:schrodinger_equation}, whilst Maxwell's equations are listed under
+\eqref{eq:Maxwell_equations} and Amp\`ere's law in particular is
+\eqref{eq:Ampere_law}.
+
+\subsection{Glossary and Bibliography}
+\label{subsec:glossary_and_bibliography}
+
+\Gls{latex}'s referencing capabailities do not end referencing particular equation
+(c.f.~\S\ref{subsec:mathematics}) but can also be used to refer to particular
+sections.  Additionally with the aid of external programs, in depth
+cross-referencing of terms in order to produce a \gls{glossary} is possible.
+
+More commonly, LaTeX is used in combination with \gls{bibtex} and \gls{biber} to
+produce bibliographies.  This automatically takes care of inserting the proper
+reference to some article \cite{Smith2013}, and I can easily cite the author and
+year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% GLOSSARY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagestyle{empty}
+
+\printglossaries
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagestyle{empty}
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables: 
+%%% TeX-master: t
+%%% End: 
