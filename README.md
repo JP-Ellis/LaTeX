@@ -16,6 +16,14 @@ features of LaTeX.  It also uses glossaries and a biblatex and thus
 external programs are required to properly compile this document
 (though this is all managed by [latexmk][latexmk]).
 
+
+## presentation.tex
+
+Just as with `report.tex`, this provides a simple template for my
+Beamer presentations and demonstrates a (very) few of the core
+features of Beamer.
+
+
 ## customizations.sty
 
 This is my own LaTeX package which is used in a document by calling
