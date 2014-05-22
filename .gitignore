@@ -13,9 +13,11 @@
 *.ist
 *.log
 *.makefile
+*.nav
 *.out
 *.pdf
 *.run.xml
+*.snm
 *.synctex.gz
 *.toc
 *.unq

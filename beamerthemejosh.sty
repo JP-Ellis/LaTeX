@@ -1,0 +1,181 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Presentation Template Theme using Beamer
+% Copyright (C) 2014  Joshua Ellis
+%
+% This is the theme for the template that I use for most of my presentations.
+%
+%
+% This program is free software; you can redistribute it and/or modify it under
+% the terms of the GNU General Public License as published by the Free Software
+% Foundation; either version 2 of the License, or (at your option) any later
+% version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+% details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+% Street, Fifth Floor, Boston, MA 02110-1301 USA.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerthemejosh}
+
+\mode<presentation>
+
+%\usefonttheme[onlymath]{serif}
+
+% Uncomment to disable the navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Display a grid to help align images
+%\beamertemplategridbackground[1cm]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% COLOURS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% There should be few colours in a presentation, and the colours should be used
+% consistently throughout the presentation.  For this reason, the following
+% colours are defined and changing them allows for them to be changed throughout
+% the presentation.
+\definecolor{text1}{RGB}{0 33 54}
+\definecolor{text2}{RGB}{0 67 79}
+\definecolor{bg1}{RGB}{254 237 164}
+\definecolor{bg2}{RGB}{177 179 175}
+\definecolor{emph1}{RGB}{239 85 65}
+\definecolor{emph2}{RGB}{233 121 36}
+\definecolor{pagebg}{RGB}{255 255 255}
+
+% Use rgb colour mode in the PDF as this will be displayed on a screen
+\selectcolormodel{rgb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEAMER STYLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\setbeamercolor{footline}{fg=bg1, bg=text1}
+%\setbeamerfont{footline}{size=\footnotesize}
+
+\setbeamercolor{source}{fg=bg1}
+\setbeamerfont{source}{size=\tiny}
+
+\setbeamercolor{title in title page}{fg=emph1}
+\setbeamercolor{author in title page}{fg=emph2}
+\setbeamercolor{institute in title page}{fg=emph1}
+
+\setbeamercolor{frametitle}{fg=emph1}
+\setbeamercolor{separation line}{bg=emph1}
+
+\setbeamercolor*{normal text}{fg=text1, bg=pagebg}
+\setbeamercolor{block body}{bg=bg1, fg=text1}
+\setbeamercolor{block title}{fg=emph1, bg=text2}
+\setbeamerfont{block title}{size=\large, series=\bf}
+
+\setbeamercolor{alert}{fg=emph1}
+
+\setbeamercolor{caption}{fg=text1}
+\setbeamercolor{caption name}{fg=emph1}
+
+\setbeamercolor{itemize item}{fg=text2}
+\setbeamercolor{itemize subitem}{fg=text2}
+\setbeamercolor{itemize subsubitem}{fg=text2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% FRAME STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{title page}{
+	\centering 
+	\usebeamercolor{title in title page}{\color{fg}{\LARGE\inserttitle}} \\[2em]
+	\usebeamercolor{author in title page}{\color{fg}{\large\insertauthor}} \\[1em]
+    \usebeamercolor{institute in title page}{\color{fg}{\large\insertinstitute}}
+    \vfill
+	\begin{center}
+		\usebeamercolor{normal text}{\color{fg}{\insertdate}}
+	\end{center}
+}
+
+%% Frame Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{frametitle}{
+	\vskip1ex
+	\raggedright
+%	\Large\insertshorttitle\ :\ \insertframetitle 
+	\Large\insertframetitle
+	\vskip-1ex
+	\begin{beamercolorbox}[wd=\paperwidth]{separation line}
+	\vskip0.2ex
+	\end{beamercolorbox}
+}
+
+%% Footer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setbeamertemplate{footline}{
+%	\hfill \footnotesize \insertreference
+%	\def\insertreference{}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BLOCKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Standard Block
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+	\vskip1em
+	\begin{beamercolorbox}[ht=4.5ex,dp=0.5ex,center,leftskip=-1em,colsep*=.75ex]{block title}
+		\setlength{\textwidth}{\textwidth-1.5ex}
+		\setlength{\linewidth}{\textwidth}
+		\usebeamerfont*{block title}
+		{\phantom{Gg}\insertblocktitle}% phantom because of baseline problem
+	\end{beamercolorbox}
+	{\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}} % Gap between title and body
+	\usebeamerfont{block body}
+	\setlength{\parskip}{0.4\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+	\begin{beamercolorbox}[leftskip=1em,rightskip=1em,colsep*=.75ex,sep=1ex]{block body}
+		\setlength{\textwidth}{\textwidth-2em-1.5ex}
+		\setlength{\linewidth}{\textwidth}
+		\ifbeamercolorempty[bg]{block body}{\vskip-2.25ex}{\vskip-2.75ex}
+}
+\setbeamertemplate{block end}{
+	\end{beamercolorbox}
+}
+
+%% Quote
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{quote begin}{
+	\vspace{1ex}
+	\begin{beamercolorbox}[leftskip=2em, rightskip=2em, vmode]{quote}
+	\begin{minipage}[c]{0.85\textwidth}
+}
+\setbeamertemplate{quote end}{
+	\end{minipage}
+	\end{beamercolorbox}
+	\vspace{1ex}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MISCELLANEOUS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>
+
+% Adapt height of itemize rectangles
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{itemize item}{\raisebox{0.2ex}{$\blacktriangleright$}\hskip0.19em}
+\setbeamertemplate{itemize subitem}{\raisebox{0.2ex}{$\triangleright$}\hskip0.19em}
+
+% Equal font sizes for all levels
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "presentation"
+%%% End: 
