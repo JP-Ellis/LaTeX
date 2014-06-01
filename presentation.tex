@@ -27,7 +27,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass{beamer}
-\mode<presentation>{\usetheme{josh}}
+\mode<presentation>{\usetheme{jpellis}}
 
 % Beamer offers quite a few very neat features specific for presentations.
 % There is quite a useful user guide which can by found on CTAN
@@ -70,19 +70,19 @@
 \tikzset{
     % The following code implements a few Beamer functions so that they can
     % easily be used within TikZ
-	onslide/.code args={<#1>#2}{%
-		\only<#1>{\pgfkeysalso{#2}}
-	},
+    onslide/.code args={<#1>#2}{%
+        \only<#1>{\pgfkeysalso{#2}}
+    },
     alt/.code args={<#1>#2#3}{%
         \only<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}
     },
-	temporal/.code args={<#1>#2#3#4}{%
-		\temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}}
-	},
+    temporal/.code args={<#1>#2#3#4}{%
+        \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}}
+    },
 }
 
 % \pgfplotsset{
-%    
+%
 % }
 
 %% Math Packages
@@ -98,7 +98,7 @@
 \def\withnumber{\refstepcounter{equation}\tag{\theequation}}
 
 % Allows page breaks in math (1 = avoid if possible, 4 = whenever)
-% Page breaks can be avoided at particular places by using \\* 
+% Page breaks can be avoided at particular places by using \\*
 \allowdisplaybreaks[2]
 
 %% Tables
@@ -143,7 +143,7 @@
 %
 % Note the final semicolon, it is required.
 \newcommand\tikzoverlay{%
-	\tikz[remember picture, overlay]\node
+    \tikz[remember picture, overlay]\node
 }
 
 % This command places text in the bottom right corner, useful for the source of
@@ -170,11 +170,11 @@
 \begin{document}
 
 \begin{frame}
-	\tikzoverlay [anchor=south, fill=white, minimum width=\paperwidth] at (current page.south) {
-		\includegraphics[height=1cm]{UoM_logo}
-	};
+    \tikzoverlay [anchor=south, fill=white, minimum width=\paperwidth] at (current page.south) {
+        \includegraphics[height=1cm]{UoM_logo}
+    };
 %
-	\titlepage
+    \titlepage
 \end{frame}
 
 \begin{frame}
@@ -186,7 +186,7 @@
 
 \begin{frame}
     \frametitle{Introduction}
-    
+
     Beamer allows you to create very nice slides.  Here is a fairly simple
     slideshow to demonstrate a few basic uses of Beamer.
 
@@ -200,7 +200,7 @@
 \subsection{Bad Usage}
 \begin{frame}
     \frametitle{Revealing Items}
-    
+
     Let's admit it, revealing items one-by-one is annoying. \pause Especially
     when the new item comes whirling in and distracts everyone from what the
     presenter is saying. \pause Having said that, hiding elements and revealing
@@ -211,7 +211,7 @@
 \subsection{Better Usage}
 \begin{frame}
     \frametitle{Revealing Items}
-    A better use a revealing item is to draw the attention.  
+    A better use a revealing item is to draw the attention.
 
     Can you spot the odd one out?
     \begin{itemize}
@@ -227,7 +227,7 @@
 \section{Placing Items}
 \begin{frame}
     \frametitle{Placing Items}
-    
+
     \tikzoverlay [anchor=west] at (current page.west) {Placing items in certain
         locations};
     \tikzoverlay [anchor=south] at (current page.south) {Use usually annoying};
@@ -236,21 +236,21 @@
         really quite good.  Nevertheless, Beamer does not provide a very good
         way of placing items and this is perhaps the one thing that \LaTeX\ won't
         do as well as PowerPoint.};
-    
+
 \end{frame}
 
 \section{Conclusion}
 
 \begin{frame}{Conclusion}
-	\centering
-	\LARGE The End \\
-	\vskip2cm
-	Questions?
+    \centering
+    \LARGE The End \\
+    \vskip2cm
+    Questions?
 \end{frame}
 
 \end{document}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
-%%% End: 
+%%% End:

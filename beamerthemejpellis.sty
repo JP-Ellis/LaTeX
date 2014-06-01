@@ -21,7 +21,7 @@
 % Street, Fifth Floor, Boston, MA 02110-1301 USA.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesPackage{beamerthemejosh}
+\ProvidesPackage{beamerthemejpellis}
 
 \mode<presentation>
 
@@ -90,27 +90,27 @@
 %% Title Page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{title page}{
-	\centering 
-	\usebeamercolor{title in title page}{\color{fg}{\LARGE\inserttitle}} \\[2em]
-	\usebeamercolor{author in title page}{\color{fg}{\large\insertauthor}} \\[1em]
+    \centering
+    \usebeamercolor{title in title page}{\color{fg}{\LARGE\inserttitle}} \\[2em]
+    \usebeamercolor{author in title page}{\color{fg}{\large\insertauthor}} \\[1em]
     \usebeamercolor{institute in title page}{\color{fg}{\large\insertinstitute}}
     \vfill
-	\begin{center}
-		\usebeamercolor{normal text}{\color{fg}{\insertdate}}
-	\end{center}
+    \begin{center}
+        \usebeamercolor{normal text}{\color{fg}{\insertdate}}
+    \end{center}
 }
 
 %% Frame Title
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{frametitle}{
-	\vskip1ex
-	\raggedright
-%	\Large\insertshorttitle\ :\ \insertframetitle 
-	\Large\insertframetitle
-	\vskip-1ex
-	\begin{beamercolorbox}[wd=\paperwidth]{separation line}
-	\vskip0.2ex
-	\end{beamercolorbox}
+    \vskip1ex
+    \raggedright
+%	\Large\insertshorttitle\ :\ \insertframetitle
+    \Large\insertframetitle
+    \vskip-1ex
+    \begin{beamercolorbox}[wd=\paperwidth]{separation line}
+    \vskip0.2ex
+    \end{beamercolorbox}
 }
 
 %% Footer
@@ -127,36 +127,36 @@
 %% Standard Block
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
-	\vskip1em
-	\begin{beamercolorbox}[ht=4.5ex,dp=0.5ex,center,leftskip=-1em,colsep*=.75ex]{block title}
-		\setlength{\textwidth}{\textwidth-1.5ex}
-		\setlength{\linewidth}{\textwidth}
-		\usebeamerfont*{block title}
-		{\phantom{Gg}\insertblocktitle}% phantom because of baseline problem
-	\end{beamercolorbox}
-	{\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}} % Gap between title and body
-	\usebeamerfont{block body}
-	\setlength{\parskip}{0.4\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
-	\begin{beamercolorbox}[leftskip=1em,rightskip=1em,colsep*=.75ex,sep=1ex]{block body}
-		\setlength{\textwidth}{\textwidth-2em-1.5ex}
-		\setlength{\linewidth}{\textwidth}
-		\ifbeamercolorempty[bg]{block body}{\vskip-2.25ex}{\vskip-2.75ex}
+    \vskip1em
+    \begin{beamercolorbox}[ht=4.5ex,dp=0.5ex,center,leftskip=-1em,colsep*=.75ex]{block title}
+        \setlength{\textwidth}{\textwidth-1.5ex}
+        \setlength{\linewidth}{\textwidth}
+        \usebeamerfont*{block title}
+        {\phantom{Gg}\insertblocktitle}% phantom because of baseline problem
+    \end{beamercolorbox}
+    {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}} % Gap between title and body
+    \usebeamerfont{block body}
+    \setlength{\parskip}{0.4\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+    \begin{beamercolorbox}[leftskip=1em,rightskip=1em,colsep*=.75ex,sep=1ex]{block body}
+        \setlength{\textwidth}{\textwidth-2em-1.5ex}
+        \setlength{\linewidth}{\textwidth}
+        \ifbeamercolorempty[bg]{block body}{\vskip-2.25ex}{\vskip-2.75ex}
 }
 \setbeamertemplate{block end}{
-	\end{beamercolorbox}
+    \end{beamercolorbox}
 }
 
 %% Quote
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{quote begin}{
-	\vspace{1ex}
-	\begin{beamercolorbox}[leftskip=2em, rightskip=2em, vmode]{quote}
-	\begin{minipage}[c]{0.85\textwidth}
+    \vspace{1ex}
+    \begin{beamercolorbox}[leftskip=2em, rightskip=2em, vmode]{quote}
+    \begin{minipage}[c]{0.85\textwidth}
 }
 \setbeamertemplate{quote end}{
-	\end{minipage}
-	\end{beamercolorbox}
-	\vspace{1ex}
+    \end{minipage}
+    \end{beamercolorbox}
+    \vspace{1ex}
 }
 
 
@@ -175,7 +175,7 @@
 \setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
 \setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "presentation"
-%%% End: 
+%%% End:
