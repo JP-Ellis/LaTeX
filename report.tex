@@ -92,11 +92,11 @@
 
 % Place customizations for TikZ and PGFplots here
 % \tikzset{
-%    
+%
 % }
 
 % \pgfplotsset{
-%    
+%
 % }
 
 %% Math Packages
@@ -112,7 +112,7 @@
 \def\withnumber{\refstepcounter{equation}\tag{\theequation}}
 
 % Allows page breaks in math (1 = avoid if possible, 4 = whenever)
-% Page breaks can be avoided at particular places by using \\* 
+% Page breaks can be avoided at particular places by using \\*
 \allowdisplaybreaks[2]
 
 %% Tables
@@ -139,7 +139,7 @@
 %\usepackage{cleveref}    % A very good way to manage references, but
                          % incompatible with mathtools' showonlyrefs and
                          % showmanualtags.
-\usepackage{lipsum} % Allows for placeholder text
+\usepackage{lipsum}      % Allows for placeholder text
 
 %% Glossary
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -161,7 +161,7 @@
 
 % hyperref should be loaded first
 \usepackage[
-	backend=biber,
+    backend=biber,
     autocite=inline,
     style=phys,
     biblabel=brackets,
@@ -264,20 +264,22 @@ appropriate spacing.
 \subsection{Mathematics}
 \label{subsec:mathematics}
 
-LaTeX also handles mathematics very nicely.  For example, I can write Einstein's
-most famous equation inline: \(E = mc^2\), and the size of the symbols is scaled
-appropriate, as demonstrated with Newton's second law: \(\vt F = \ddfrac{\vt
-    p}{t}\).  Contrast the small fraction with the alternative inline notation:
-\(\vt F = \dd \vt p / \dd t\), where no scaling is required.
+\Gls{latex} also handles mathematics very nicely; for example, I can write
+Einstein's most famous equation inline: \(E = mc^2\).  Inline maths in \LaTeX~is
+scaled appropriately so that it fits the line as can be demonstrated with
+Newton's second law: \(\vt F = \ddfrac{\vt p}{t}\).  Newton's second law could
+also be written at \(\vt F = \dd \vt p / \dd t\), where no scaling is required.
 
 Equations can also be placed on the own line within a text if they are a little
 cumbersome to write inline, such the Schr\"odinger equation:
 \begin{equation}
     \label{eq:schrodinger_equation}
-    i \hbar \pfrac{\Psi(\vt x, t)}{t} = - \frac{\hbar^2}{2m} \nabla^2 \Psi(\vt x, t) + V(\vt x, t) \Psi(\vt x, t)
+    i \hbar \pfrac{\Psi(\vt x, t)}{t} = - \frac{\hbar^2}{2m} \nabla^2 \Psi(\vt x, t) + V(\vt x, t) \Psi(\vt x, t).
 \end{equation}
-and if I have multiple equations, they can be aligned nicely as demonstrated
-with Maxwell's equations:
+When there are multiple equations, these can be aligned nicely to make it
+clearer.  The location which is aligned is done at the symbol after the
+\verb|&|; typically, this is done at the equal sign as shown with Maxwell's
+equation:
 \begin{subequations}
     \label{eq:Maxwell_equations}
     \begin{align}
@@ -292,7 +294,7 @@ with Maxwell's equations:
     \end{align}
 \end{subequations}
 
-\gls{latex} also takes care of all the referencing with \verb|\label{}| and
+\LaTeX~also takes care of all the referencing with \verb|\label{}| and
 \verb|\ref{}|.  Schr\"odinger's equation for example is equation
 \eqref{eq:schrodinger_equation}, whilst Maxwell's equations are listed under
 \eqref{eq:Maxwell_equations} and Amp\`ere's law in particular is
@@ -310,6 +312,38 @@ More commonly, LaTeX is used in combination with \gls{bibtex} and \gls{biber} to
 produce bibliographies.  This automatically takes care of inserting the proper
 reference to some article \cite{Smith2013}, and I can easily cite the author and
 year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
+
+
+%% Just some filler text now...
+\clearpage
+\section{Lorem Ipsum}
+
+\lipsum[1-4]
+
+\subsection{Aliquam Dolor}
+
+\lipsum[6-9]
+
+\subsection{Dius Non Odo}
+
+\lipsum[10]
+
+\subsubsection{Dignissim Dui}
+
+\lipsum[11-12]
+
+\subsubsection{Laoreet Vitae}
+
+\lipsum[13-15]
+
+\paragraph{Egestas Est} \lipsum[16]
+
+\paragraph{Nam Commodo} \lipsum[17]
+
+
+\lipsum[18-22]
+
+
 
 
 
@@ -332,6 +366,6 @@ year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
 
 \end{document}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% TeX-master: t
-%%% End: 
+%%% End:
