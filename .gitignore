@@ -11,20 +11,23 @@
 *.glo
 *.gls
 *.ist
+*.loa
+*.loe
 *.log
 *.makefile
 *.nav
 *.out
-*.pdf
 *.run.xml
 *.snm
+*.synctex
 *.synctex.gz
 *.toc
 *.unq
 /pgf-img/
 
-# Ignore AUCTeX folder
+# Ignore AUCTeX folder and files
 /auto/
+/_region_.*
 
 # Ignore backup files and temporary files
 *~
