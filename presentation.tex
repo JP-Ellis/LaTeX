@@ -186,7 +186,7 @@
     slideshow to demonstrate a few basic uses of Beamer.
 
     As you might expect from \LaTeX, it tries to positions everything \emph{just
-        right}; having said that, \LaTeX was originally designed for print and
+        right}; having said that, \LaTeX~was originally designed for print and
     presentation may require a bit more trial-and-error.
 \end{frame}
 
@@ -223,14 +223,18 @@
 \begin{frame}
     \frametitle{Placing Items}
 
-    \tikzoverlay [anchor=west] at (current page.west) {Placing items in certain
-        locations};
-    \tikzoverlay [anchor=south] at (current page.south) {Use usually annoying};
-    \tikzoverlay [anchor=east, text width=4cm, align=right] at (current page.east) {But if it
-        is properly done (as with a diagram for example), the effect can be
-        really quite good.  Nevertheless, Beamer does not provide a very good
-        way of placing items and this is perhaps the one thing that \LaTeX\ won't
-        do as well as PowerPoint.};
+    \tikzoverlay [anchor=west, text width=5cm, align=center] at (current page.west)
+    {
+        When people use PowerPoint, they like to place items all over the place
+        inevitably resulting in clutter and distracting the audience.
+    };
+    \tikzoverlay [anchor=east, text width=6cm, align=center] at (current page.east)
+    {
+        If it is used well on the other hand (as with a diagram for example),
+        the effect can be really quite good.  Nevertheless, Beamer does not
+        provide a very good way of placing items and this is perhaps the one
+        thing that \LaTeX\ won't do as well as PowerPoint.
+    };
 
 \end{frame}
 
