@@ -29,7 +29,7 @@ features of Beamer.
 This is my own LaTeX package which is used in a document by calling
 `\usepackage{jpellis}`.  It mostly contains a large number of
 useful commands, especially useful in physics.  I have not yet created
-any formal documentation as to what `customizations` has to offer,
+any formal documentation as to what `jpellis` has to offer,
 though the source code should have enough documentation.
 
 
