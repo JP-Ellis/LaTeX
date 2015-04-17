@@ -24,10 +24,10 @@ Beamer presentations and demonstrates a (very) few of the core
 features of Beamer.
 
 
-## customizations.sty
+## jpellis.sty
 
 This is my own LaTeX package which is used in a document by calling
-`\usepackage{customizations}`.  It mostly contains a large number of
+`\usepackage{jpellis}`.  It mostly contains a large number of
 useful commands, especially useful in physics.  I have not yet created
 any formal documentation as to what `customizations` has to offer,
 though the source code should have enough documentation.
