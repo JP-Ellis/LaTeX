@@ -181,6 +181,10 @@
 %%   - \ket{}               | >
 %%   - \braket{}{}          < | >
 %%   - \brakket{}{}{}       < | | >
+%%   There are also \dbraket and \dbrakket  versions which replace | with ||;
+%%   and \praket and \prakket which use parentheses instead of angle brackets.
+%%
+%% - Feynman slash with \fsl{}
 %%
 %% - (Anti)-commutator.  Also in starred/unstarred flavours
 %%   - \commut{}{}          [ , ]
@@ -225,7 +229,45 @@
     \newcommand{\brakketNoStar}[3]{
         \langle {\textstyle #1} | {\textstyle #2} | {\textstyle #3} \rangle}
 
-    %% Commutator and Anticommutator
+    \newcommand\praket{\@ifstar
+        \praketStar%
+        \praketNoStar}
+    \newcommand{\praketStar}[2]{
+        \left( #1 \vphantom{#2} \!\right. %
+        \left| #2 \vphantom{#1} \right)}
+    \newcommand{\praketNoStar}[2]{
+        ( {\textstyle #1} | {\textstyle #2} )}
+
+    \newcommand\prakket{\@ifstar
+        \prakketStar%
+        \prakketNoStar}
+    \newcommand{\prakketStar}[3]{
+        \left( #1 \vphantom{#2 #3} \!\right.
+        \left| \vphantom{#1} #2 \vphantom{#3} \!\right.
+        \left| \vphantom{#1 #2} #3 \right)}
+    \newcommand{\prakketNoStar}[3]{
+        ( {\textstyle #1} | {\textstyle #2} | {\textstyle #3} \rangle}
+
+     \newcommand\dbraket{\@ifstar
+        \dbraketStar%
+        \dbraketNoStar}
+    \newcommand{\dbraketStar}[2]{
+        \left\langle #1 \vphantom{#2} \!\right. %
+        \left\| #2 \vphantom{#1} \right\rangle}
+    \newcommand{\dbraketNoStar}[2]{
+        \langle {\textstyle #1} \| {\textstyle #2} \rangle}
+
+    \newcommand\dbrakket{\@ifstar
+        \dbrakketStar%
+        \dbrakketNoStar}
+    \newcommand{\dbrakketStar}[3]{
+        \left\langle #1 \vphantom{#2 #3} \!\right.
+        \left\| \vphantom{#1} #2 \vphantom{#3} \!\right.
+        \left\| \vphantom{#1 #2} #3 \right\rangle}
+    \newcommand{\dbrakketNoStar}[3]{
+        \langle {\textstyle #1} \| {\textstyle #2} \| {\textstyle #3} \rangle}
+
+     %% Commutator and Anticommutator
     \newcommand\commut{\@ifstar
         \commutStar%
         \commutNoStar}
@@ -242,6 +284,10 @@
         \left. #2 \vphantom{#1} \right\}}
     \newcommand{\acommutNoStar}[2]{
         \{ #1 , #2 \}}
+
+    % Feynman slash
+    \RequirePackage{slashed}
+    \newcommand{\fsl}[1]{\slashed{#1}}
 \fi
 
 %% Define some new alphabets and also define easier ways to access them.

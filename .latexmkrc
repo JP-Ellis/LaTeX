@@ -60,7 +60,7 @@ $max_repeat = 9;
 # Provide support for the PGF/TikZ Externalization
 our %externalflag = ();
 
-$pdflatex = 'internal mypdflatex %O %S %B';
+$pdflatex = 'internal mypdflatex -shell-escape %O %S %B';
 
 sub mypdflatex {
     our %externalflag;
