@@ -35,7 +35,7 @@
 %% In general, LaTeX commands start with `\` and consist of letters only.
 %% Optional parameters are specified in brackets `[]`, whilst compulsory
 %% arguments (if any) are specified in braces `{}`.
-\documentclass[twoside, onecolumn, portait, bibliography=totoc, parskip=half*]{scrartcl}
+\documentclass[twoside, onecolumn, bibliography=totoc, parskip=half*]{scrartcl}
 %% Some common optional arguments to the document class are listed below.  The
 %% defaults depend on the class use (so see the Koma scripts for bibliography
 %% and parskip).
@@ -81,14 +81,26 @@
 % \onehalfspacing
 % \doublespacing
 
-\usepackage{lmodern}   % Use the Latin Modern font
-\usepackage{microtype} % Fine small typographical details
+% See http://tex.stackexchange.com/questions/664
+% \usepackage[T1]{fontenc} % Do not use with LuaLaTeX
+% \usepackage{lmodern}   % Slight improvement to Computer Modern
+\usepackage{ebgaramond}  % A nice serif font
+% \usepackage{fontspec}  % Allows other fonts to be specified
+% \setmainfont{EBGaramond12}
+\usepackage{microtype}   % Fine small typographical details
+
+\setkomafont{section}{\normalfont\Huge}
+\setkomafont{subsection}{\normalfont\huge}
+\setkomafont{subsubsection}{\normalfont\Large}
+
+\setkomafont{sectionentry}{\scshape}
+\setkomafont{paragraph}{\normalfont\large\scshape}
 
 %% Language
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[UKenglish]{babel} % Set up the language
-\usepackage[T1]{fontenc}      % Required for better PDF output
+\usepackage{csquotes}
 \usepackage{siunitx}          % Provides \SI{1}{\metre}, also \ang{90}.
 
 %% Graphics & Figure
@@ -129,6 +141,8 @@
 \usepackage{mathtools} % Various extra maths functions
 % \usepackage{cancel}    % Show cancellations with \cancel{}
 % \usepackage{autonum}   % Only number referenced equations (must be loaded after cleverref)
+
+\usepackage[cmintegrals,varg]{newtxmath} % Nice math with Garamond
 
 %% Define \withnumber which forces the line to have number
 \newcommand{\withnumber}{\refstepcounter{equation}\tag{\theequation}}
@@ -193,7 +207,7 @@
 
 %% This is not a CTAN package but instead contains a whole lot of small scripts I
 %% use nearly all the time.
-\usepackage{jpellis}
+\usepackage[theorems=false]{jpellis}
 
 %% Modify the skip after each paragraph
 \setlength{\parindent}{1em}
@@ -299,13 +313,12 @@
     \large \@date
   \end{center}
 
-\cleardoublepage
 \makeatother
 \end{titlepage}
 
 %% Table of Content
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\cleardoublepage
 \pagestyle{plain}
 \pagenumbering{roman}
 
@@ -358,6 +371,10 @@ equation:
         \nabla \times \vt B &= \mu_0 \vt J + \mu_0 \varepsilon_0 \pfrac{\vt E}{t}
     \end{align}
 \end{subequations}
+Alternatively, these can all be much more succinctly written as
+\begin{equation}
+  -\frac{1}{4} F^{\mu\nu} F_{\mu\nu} = 0.
+\end{equation}
 
 \LaTeX~also takes care of all the referencing with \verb|\label{}| and
 \verb|\ref{}|.  Schr\"odinger's equation for example is equation
@@ -373,7 +390,7 @@ equation:
 sections.  Additionally with the aid of external programs, in depth
 cross-referencing of terms in order to produce a \gls{glossary} is possible.
 
-More commonly, LaTeX is used in combination with \gls{bibtex} and \gls{biber} to
+More commonly, \LaTeX~is used in combination with \gls{bibtex} and \gls{biber} to
 produce bibliographies.  This automatically takes care of inserting the proper
 reference to some article \cite{Smith2013}, and I can easily cite the author and
 year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
