@@ -1,9 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Base Template
-%% Copyright (C) 2014  Joshua Ellis
-%%
-%% This is the template that I use for most of my documents.
+%% Copyright (C) 2016  Joshua Ellis
 %%
 %%
 %% This LaTeX file is free: you can redistribute it and/or modify it under the
@@ -59,36 +57,53 @@
 %% - draft, final
 %%   Draft modes highlights some errors in the output, and does not include
 %%   pictures (which can save a lot of time in a document with many pictures).
-%%
-%%
+
+
 %% The part of the document starting from here through to the
 %% `\begin{document}` command is called the preamble.  This is where you include
 %% additional packages which provide additional functionalities.  Below are many
 %% packages which I personally use at some point or another.
 %%
+%% They are all enabled here for the sake of checking compatibility, but in
+%% general only the ones used should be enabled.
+%%
 %% More information about nearly every package can be found at
 %% ctan.org/pkg/<pkg-name>.
+
+%% The following two packages don't play well together and require to be loaded
+%% first and in this order
+\usepackage{atveryend}
+\usepackage{etex}
 
 %% Formatting
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[vmargin={3cm,3cm}]{geometry}  % Customize text width, page height, margins, etc.
-% \usepackage{multicol}  % {multicols}{n} environment
-% \usepackage{pdflscape} % {landscape} environment
+\usepackage{multicol}  % {multicols}{n} environment
+\usepackage{pdflscape} % {landscape} environment
 
-% \usepackage{setspace}  % Line spacing
-% \singlespacing
+\usepackage{setspace}  % Line spacing
+\singlespacing
 % \onehalfspacing
 % \doublespacing
 
-% See http://tex.stackexchange.com/questions/664
-% \usepackage[T1]{fontenc} % Do not use with LuaLaTeX
-% \usepackage{lmodern}   % Slight improvement to Computer Modern
-\usepackage{ebgaramond}  % A nice serif font
-% \usepackage{fontspec}  % Allows other fonts to be specified
-% \setmainfont{EBGaramond12}
+\usepackage{fontspec}  % Allows other fonts to be specified
+\setmainfont{EB Garamond}[
+  Contextuals={Alternate},
+  Ligatures={Rare,Historic},
+  Numbers=OldStyle,
+  % CharacterVariant={1},    % historical s
+  CharacterVariant={4},    % &
+  CharacterVariant={5:3},  % v
+  % CharacterVariant={27},   % g
+]
+\newfontface\swshape{EB Garamond 12 Italic}[Style=Swash]
+
 \usepackage{microtype}   % Fine small typographical details
 
+% Change the formatting of titles and sections.
+\setkomafont{part}{\normalfont\scshape\Huge}
+\setkomafont{partnumber}{\normalfont\scshape\huge}
 \setkomafont{section}{\normalfont\Huge}
 \setkomafont{subsection}{\normalfont\huge}
 \setkomafont{subsubsection}{\normalfont\Large}
@@ -96,25 +111,30 @@
 \setkomafont{sectionentry}{\scshape}
 \setkomafont{paragraph}{\normalfont\large\scshape}
 
+\usepackage{enumitem}                  % Easily customize lists
+
 %% Language
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[UKenglish]{babel} % Set up the language
-\usepackage{csquotes}
+\usepackage{csquotes}         % Advanced handling of quotes
 \usepackage{siunitx}          % Provides \SI{1}{\metre}, also \ang{90}.
 
 %% Graphics & Figure
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{graphicx}   % Allow graphics to be included
+
 \usepackage{xcolor}     % Define and use colours
-% \usepackage{subcaption} % Subfigures inside a figure
+\usepackage{subcaption} % Subfigures inside a figure
 
 % Keep all pictures in the './img/' sub-directory.
 \graphicspath{{./img/}}
 
-% \usepackage{tikz}       % Powerful drawing language
-% \usepackage{pgfplots}   % Plotting with LaTeX
+\usepackage{tikz}         % Powerful drawing language
+\usepackage{pgfplots}     % Plotting with LaTeX
+\pgfplotsset{compat=1.13}
+\usepackage[compat=1.1.0]{tikz-feynman} % Ability to draw Feynman diagrams
 
 %% TikZ pictures and plots can significantly increase the time it takes to
 %% produce the output.  The `external` TikZ library library defers the creation
@@ -136,11 +156,12 @@
 %% Math Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{amsmath}   % The core math package
-\usepackage{amssymb}   % Defines additional math fonts 
-\usepackage{mathtools} % Various extra maths functions
-% \usepackage{cancel}    % Show cancellations with \cancel{}
+\usepackage{amsmath}     % The core math package
+\usepackage{amssymb}     % Defines additional math fonts 
+\usepackage{mathtools}   % Various extra maths functions
+\usepackage{cancel}      % Show cancellations with \cancel
 % \usepackage{autonum}   % Only number referenced equations (must be loaded after cleverref)
+\usepackage{dsfont}
 
 \usepackage[cmintegrals,varg]{newtxmath} % Nice math with Garamond
 
@@ -154,10 +175,12 @@
 %% Tables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{array}     % New column types, including >{}x<{}
+\usepackage{tabularx}  % Improved tabular environment
+\usepackage{longtable} % Multipage tables
+\usepackage{array}     % New column types, including >x<
 \usepackage{booktabs}  % Provides nicer horizontal lines
 \usepackage{multirow}  % Allows cells to span multiple rows
-%\usepackage{longtable} % Allows for tables to span multiple pages
+\usepackage{longtable} % Allows for tables to span multiple pages
 
 %% Define the maths version of clr columns.
 \newcolumntype{C}{>{\(}c<{\)}}
@@ -167,12 +190,14 @@
 %% Other Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \usepackage{enumitem}                  % Easily customize lists
-\usepackage[pagecontinue=false]{pageslts} % Reference the last page
-\usepackage{hyperref}                    % Automatically inserts hyperlinks.
-\usepackage{cleveref}                    % Use `\cref{}` to reference anything
+\usepackage{pageslts}  % Reference the last page
+\usepackage{hyperref}  % Automatically inserts hyperlinks.
+\usepackage{cleveref}  % Use `\cref` to reference anything
+\usepackage[perpage,symbol*]{footmisc}  % Have symbols instead of numbers for footnotes
 
-\usepackage{lipsum}                      % For placeholder text
+\usepackage{autonum}  % Must be loaded after all *ref packages
+
+\usepackage{mwe}  % Only provides dummy text and images.
 
 %% Glossary
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,8 +207,10 @@
 
 % hyperref should be loaded first
 \usepackage[toc]{glossaries}
-\renewcommand*{\glstextformat}[1]{\textsf{#1}}
+\usepackage{glossaries-extra}
+
 \setglossarystyle{index}
+\setabbreviationstyle[acronym]{long-short-sc}
 
 \loadglsentries{glossary}
 
@@ -283,7 +310,7 @@
 %% DOCUMENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\pagenumbering{arabic}
+\pagenumbering{Alph}
 
 %% Title
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -295,7 +322,7 @@
   \begin{center}
     \vspace*{2.5cm}
 
-    \Huge \textbf{\@title} \\[0em]
+    \Huge \@title \\[0em]
     \rule{\linewidth}{2pt}
     \huge \textsc{\@subtitle}\\[6em]
 
@@ -332,19 +359,46 @@
 \pagenumbering{arabic}
 
 \section{Introduction}
+\label{sec:introduction}
 
-\Gls{latex} is a program designed to typeset documents.  Unlike programs such as
+\gls{latex} is a program designed to typeset documents.  Unlike programs such as
 \href{http://office.microsoft.com/en-au/word/}{Microsoft Word} and
-\href{http://www.libreoffice.org/discover/writer/}{LibreOffice Writer}, LaTeX
+\href{http://www.libreoffice.org/discover/writer/}{Libre\-Office Writer}, LaTeX
 makes an effort to ensure that everything is placed correctly with the
 appropriate spacing.
+
+\subsection{Philosophy}
+\label{subsec:philosophy}
+
+The main philosphy behind \gls{latex} is ``\textit{what you mean is what you
+  get}''.  That is, if you want to \emph{emphasize} some text, you should use
+\verb|\emph{this command}|.  This ensures that no matter what environment you're
+in, it uses the appropriate emphasis.  \emph{For example, if a whole sentence is
+  already emphasized, you can still use the same command to \emph{emphasize} a
+  particular word!}
+
+Similarly, to enumerate certain item, I could manually insert ``1. \dots,
+2. \dots'', but \gls{latex} provides its own \emph|{enumerate}| environment:
+\begin{enumerate}
+\item This allows items
+\item To be created easily
+  \begin{enumerate}
+  \item And nesting
+    \begin{enumerate}
+    \item Is automatically 
+    \end{enumerate}
+  \item Handled
+  \item Without much
+  \end{enumerate}
+\item Difficulty.
+\end{enumerate}
 
 \subsection{Mathematics}
 \label{subsec:mathematics}
 
-\Gls{latex} also handles mathematics very nicely; for example, I can write
-Einstein's most famous equation inline: \(E = mc^2\).  Inline maths in \LaTeX~is
-scaled appropriately so that it fits the line as can be demonstrated with
+\gls{latex} also handles mathematics very nicely; for example, I can write
+Einstein's most famous equation inline: \(E = mc^2\).  Inline maths in \LaTeX{}
+is scaled appropriately so that it fits the line as can be demonstrated with
 Newton's second law: \(\vt F = \ddfrac{\vt p}{t}\).  Newton's second law could
 also be written at \(\vt F = \dd \vt p / \dd t\), where no scaling is required.
 
@@ -371,29 +425,32 @@ equation:
         \nabla \times \vt B &= \mu_0 \vt J + \mu_0 \varepsilon_0 \pfrac{\vt E}{t}
     \end{align}
 \end{subequations}
-Alternatively, these can all be much more succinctly written as
-\begin{equation}
-  -\frac{1}{4} F^{\mu\nu} F_{\mu\nu} = 0.
-\end{equation}
 
-\LaTeX~also takes care of all the referencing with \verb|\label{}| and
-\verb|\ref{}|.  Schr\"odinger's equation for example is equation
-\eqref{eq:schrodinger_equation}, whilst Maxwell's equations are listed under
-\eqref{eq:Maxwell_equations} and Amp\`ere's law in particular is
-\eqref{eq:Ampere_law}.
+\LaTeX{} also takes care of all the referencing with \verb|\label{}| and
+\verb|\ref{}|.  Schr\"odinger's equation for example is
+\cref{eq:schrodinger_equation}, whilst Maxwell's equations are listed under
+\cref{eq:Maxwell_equations} and Amp\`ere's law in particular is
+\cref{eq:Ampere_law}.
 
 \subsection{Glossary and Bibliography}
 \label{subsec:glossary_and_bibliography}
 
-\Gls{latex}'s referencing capabailities do not end referencing particular equation
-(c.f.~\S\ref{subsec:mathematics}) but can also be used to refer to particular
-sections.  Additionally with the aid of external programs, in depth
+\gls{latex}'s referencing capabailities do not end referencing particular
+equation (c.f.~\S\ref{subsec:mathematics}) but can also be used to refer to
+particular sections.  Additionally with the aid of external programs, in depth
 cross-referencing of terms in order to produce a \gls{glossary} is possible.
 
-More commonly, \LaTeX~is used in combination with \gls{bibtex} and \gls{biber} to
-produce bibliographies.  This automatically takes care of inserting the proper
-reference to some article \cite{Smith2013}, and I can easily cite the author and
-year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
+More commonly, \LaTeX~is used in combination with \gls{bibtex} and \gls{biber}
+to produce bibliographies.  This automatically takes care of inserting the
+proper reference to some article \cite{Smith2013}, and I can easily cite the
+author and year of the article: \citeauthor{Smith2013}, \citeyear{Smith2013}.
+
+\subsection{Sharing \emph{\&} Contributing}
+\label{subsec:sharing_and_contributing}
+
+If you found this little document helpful, please feel free to share it others;
+it's completely free!  I also welcome suggestions for or modifications to this
+document.
 
 
 %% Just some filler text now...
