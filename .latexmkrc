@@ -10,8 +10,11 @@ $pdf_previewer = 'xdg-open %S';
 # Increase the max repeats (for makeglossaries)
 $max_repeat = 9;
 
-# Add auxlock to the cleanup list
+# Add other temporary files to the cleanup
 push @generated_exts, 'auxlock', 'synctex.gz';
+push @generated_exts, 'run.xml';
+push @generated_exts, 'nav', 'snm';
+push @generated_exts, 'vrb';
 
 # Provide support for Glossaries
 ################################################################################
@@ -67,7 +70,7 @@ sub tikzpdflatex {
     if ( !defined $externalflag->{$base} ) {
         $externalflag->{$base} = 1;
         if ( -e "$base.makefile" ) {
-            system ("$make -j8 -f $base.makefile");
+            system ("$make -j\$(nproc) -f $base.makefile");
         }
     }
     return $?;
