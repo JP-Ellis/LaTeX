@@ -8,7 +8,7 @@ A brief summary of each file contained here is listed below.
 
 Unless otherwise stated, all code is licensed under GPLv3.
 
-## [`.latexmkrc`](.latexmkrc)
+## [.latexmkrc](.latexmkrc)
 
 LaTeX usually requires multiple compilation runs before the final output is
 ready.  This is further exacerbated if the main document has an index, a
@@ -26,19 +26,19 @@ directory of your LaTeX file and call
 latexmk filename
 ```
 
-## [`thesis.cls`](thesis.cls)
+## Thesis Class ([.cls](thesis.cls), [.tex](thesis.tex), [PDF](../../raw/master/thesis.pdf))
 
 The file [`thesis.cls`](thesis.cls) is a class dedicated for theses.  It was
 created while I was writing my masters.  The corresponding
 file [`thesis.tex`](thesis.tex) ([PDF](../../raw/master/thesis.pdf)) documents
 all the options provided by the class file in the same format as a thesis.
 
-## [`report.tex`](report.tex) ([PDF](../../raw/master/report.pdf))
+## Report Template ([.tex](report.tex), [PDF](../../raw/master/report.pdf))
 
 Provides a template for reports and demonstrates a few important features of
 LaTeX.
 
-## [`jpellis.sty`](jpellis.sty)
+## [jpellis.sty](jpellis.sty)
 
 This style file contains an assortment of commands which I find useful.  It can
 be used by called `\usepackage{jpellis}` provided
@@ -48,7 +48,7 @@ that [`jpellis.sty`](jpellis.sty) is in the same directory as the (master)
 The package is not (yet) documented, though the source code should have enough
 information.
 
-## [`pgfplots.default.tex`](pgfplots.default.tex)
+## PGFPlots Default ([.tex](pgfplots.default.tex))
 
 Although most of the default settings
 for [PGFPlots](http://ctan.org/pkg/pgfplots) are quite good, there are some
