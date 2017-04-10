@@ -2,6 +2,8 @@
 %% GLOSSARY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newabbreviation[category=acronym]{SM}{sm}{Standard Model}
+
 %\newglossaryentry{}{
 %	name={},
 %	plural={},
