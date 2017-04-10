@@ -33,10 +33,12 @@ created while I was writing my masters.  The corresponding
 file [`thesis.tex`](thesis.tex) ([PDF](../../raw/master/thesis.pdf)) documents
 all the options provided by the class file in the same format as a thesis.
 
-## Report Template ([.tex](report.tex), [PDF](../../raw/master/report.pdf))
+## Example ([.tex](example.tex), [PDF](../../raw/master/example.pdf))
 
-Provides a template for reports and demonstrates a few important features of
-LaTeX.
+Provides an example document with a fully fleshed out (and documented) preamble.
+It also contains a few useful hints to get started with LaTeX.  This is the
+preamble I'll use for various documents (albeit, with unnecessary packages
+commented out).
 
 ## [jpellis.sty](jpellis.sty)
 
