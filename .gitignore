@@ -23,7 +23,8 @@
 *.synctex.gz
 *.toc
 *.unq
-/pgf-img/
+_minted-*/
+images/tikz/
 
 # Ignore AUCTeX folder and files
 auto/
