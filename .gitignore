@@ -32,3 +32,6 @@ _region_.*
 # Ignore backup files and temporary files
 *~
 *#
+
+# This is a link to an external file and should be recreated
+/pgfmanual-en-macros.tex
