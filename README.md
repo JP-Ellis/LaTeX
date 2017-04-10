@@ -1,73 +1,51 @@
-# my-LaTeX
+# LaTeX
 
-**my-LaTeX** contains a set of files and configuration with
-(pdf)LaTeX that I very commonly use.  You are welcome to have a look
-at them and use them.
+This repository contains an assortment of LaTeX code which I use or have used.
+Although I try and keep everything documented, some of it is only documented
+within the code while some other parts have a more fully fledged documentation.
 
-The collection of code has grown quite organically along with my
-needs, most of it is written by me though some parts were originally
-sourced online.
+A brief summary of each file contained here is listed below.
 
+## `.latexmkrc`
 
-## report.tex
+LaTeX usually requires multiple compilation runs before the final output is
+ready.  This is further exacerbated if the main document has an index, a
+bibliography, a glossary, ... as they require additional programs to be run.
+
+Fortunately, there are several tools out there which automate the compilation of
+a LaTeX file, on of them is [`latexmk`](http://ctan.org/pkg/latexmk).  The
+`.latexmkrc` file included is configured to use LuaLaTeX and has support for
+PGF/Ti*k*Z' `external` library.
+
+In order to the `.latexmkrc` file, simply copy it into the root directory of
+your LaTeX file and call
+
+```
+latexmk filename
+```
+
+## `thesis.cls`
+
+The file `thesis.cls` is a class dedicated for theses.  It was created while I
+was writing my masters.  The corresponding file `thesis.tex` documents all the
+options provided by the class file in the same format as a thesis.
+
+## `report.tex`
 
 Provides a template for reports and demonstrates a few important
-features of LaTeX.  It also uses glossaries and a biblatex and thus
-external programs are required to properly compile this document
-(though this is all managed by [latexmk][latexmk]).
+features of LaTeX.
 
+## `jpellis.sty`
 
-## presentation.tex
+This style file contains an assortment of commands which I find useful.  It can
+be used by called `\usepackage{jpellis}` provided that `jpellis.sty` is in the
+same directory as the (master) `.tex` file.
 
-Just as with `report.tex`, this provides a simple template for my
-Beamer presentations and demonstrates a (very) few of the core
-features of Beamer.
+The package is not (yet) documented, though the source code should have enough
+information.
 
+## `pgfplots.default.tex`
 
-## jpellis.sty
-
-This is my own LaTeX package which is used in a document by calling
-`\usepackage{jpellis}`.  It mostly contains a large number of
-useful commands, especially useful in physics.  I have not yet created
-any formal documentation as to what `jpellis` has to offer,
-though the source code should have enough documentation.
-
-
-## pgfplots.tex
-
-[PGFPlots][pgfplots] is a LaTeX package that builds on
-[PGF/TikZ][pgf/tikz] and allows you to draw graphs in LaTeX.  It can
-plot functions as well as data points from a file in both 2D and 3D in
-a variety of formats.
-
-The PGFPlots documentation is quite thorough and I recommend you have
-a good read there first, however I have sometimes found myself wanting
-to extend the capabilities a little bit further.  This file contains a
-compilation of tricks I have discovered.
-
-Depending on the size of the graph, PGFPlots can take a long time to
-execute and may use more resources than is typically available to
-(pdf)LaTeX.  For this reason, I use a feature from PGF that allows
-PGF/TikZ graphics to be generated outside of the (pdf)LaTeX and the
-subsequent PDF is then imported.  Doing this allows for other LaTeX
-compilers to be used so that memory limitations are circumvented (such
-as with XeLaTeX) and the graphic is only regenerated when the data has
-changed.
-
-
-## .latexmkrc
-
-(pdf)LaTeX usually requires multiple runs get all the
-cross-referencing correct.  Additionally, using the
-[Glossaries][glossaries] package and the externalization feature from
-[PGF/Tikz][pgf/tikz] requires additional programs to be called.
-[LaTeXmk][latexmk] is a package that provides a wrapper for (pdf)LaTeX
-which will automatically take care of doing to appropriate number of
-reruns, and call the appropriate external packages in order to
-completely compile (pdf)LaTeX.
-
-
-[pgfplots]: http://www.ctan.org/pkg/pgfplots
-[pgf/tikz]: http://www.ctan.org/pkg/pgf
-[glossaries]: http://www.ctan.org/pkg/glossaries
-[latexmk]: http://www.ctan.org/pkg/latexmk
+Although most of the default settings
+for [PGFPlots](http://ctan.org/pkg/pgfplots) are quite good, there are some
+further customization which I like.
