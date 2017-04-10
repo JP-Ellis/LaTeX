@@ -26,8 +26,8 @@
 /pgf-img/
 
 # Ignore AUCTeX folder and files
-/auto/
-/_region_.*
+auto/
+_region_.*
 
 # Ignore backup files and temporary files
 *~
