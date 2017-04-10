@@ -6,6 +6,8 @@ within the code while some other parts have a more fully fledged documentation.
 
 A brief summary of each file contained here is listed below.
 
+Unless otherwise stated, all code is licensed under GPLv3.
+
 ## [`.latexmkrc`](.latexmkrc)
 
 LaTeX usually requires multiple compilation runs before the final output is
