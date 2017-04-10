@@ -6,7 +6,7 @@ within the code while some other parts have a more fully fledged documentation.
 
 A brief summary of each file contained here is listed below.
 
-## `.latexmkrc`
+## [`.latexmkrc`](.latexmkrc)
 
 LaTeX usually requires multiple compilation runs before the final output is
 ready.  This is further exacerbated if the main document has an index, a
@@ -14,37 +14,39 @@ bibliography, a glossary, ... as they require additional programs to be run.
 
 Fortunately, there are several tools out there which automate the compilation of
 a LaTeX file, on of them is [`latexmk`](http://ctan.org/pkg/latexmk).  The
-`.latexmkrc` file included is configured to use LuaLaTeX and has support for
+[`.latexmkrc`](.latexmkrc) file included is configured to use LuaLaTeX and has support for
 PGF/Ti*k*Z' `external` library.
 
-In order to the `.latexmkrc` file, simply copy it into the root directory of
-your LaTeX file and call
+In order to the [`.latexmkrc`](.latexmkrc) file, simply copy it into the root
+directory of your LaTeX file and call
 
 ```
 latexmk filename
 ```
 
-## `thesis.cls`
+## [`thesis.cls`](thesis.cls)
 
-The file `thesis.cls` is a class dedicated for theses.  It was created while I
-was writing my masters.  The corresponding file `thesis.tex` documents all the
-options provided by the class file in the same format as a thesis.
+The file [`thesis.cls`](thesis.cls) is a class dedicated for theses.  It was
+created while I was writing my masters.  The corresponding
+file [`thesis.tex`](thesis.tex) ([PDF](../../raw/master/thesis.pdf)) documents
+all the options provided by the class file in the same format as a thesis.
 
-## `report.tex`
+## [`report.tex`](report.tex) ([PDF](../../raw/master/report.pdf))
 
-Provides a template for reports and demonstrates a few important
-features of LaTeX.
+Provides a template for reports and demonstrates a few important features of
+LaTeX.
 
-## `jpellis.sty`
+## [`jpellis.sty`](jpellis.sty)
 
 This style file contains an assortment of commands which I find useful.  It can
-be used by called `\usepackage{jpellis}` provided that `jpellis.sty` is in the
-same directory as the (master) `.tex` file.
+be used by called `\usepackage{jpellis}` provided
+that [`jpellis.sty`](jpellis.sty) is in the same directory as the (master)
+`.tex` file.
 
 The package is not (yet) documented, though the source code should have enough
 information.
 
-## `pgfplots.default.tex`
+## [`pgfplots.default.tex`](pgfplots.default.tex)
 
 Although most of the default settings
 for [PGFPlots](http://ctan.org/pkg/pgfplots) are quite good, there are some
