@@ -1,0 +1,317 @@
+\documentclass[11pt, twoside, openright, final]{thesis}
+% \documentclass[11pt, twoside, openright, draft]{thesis}
+
+%% Modification to the thesis style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{
+  %% Space for the binding can be taken into account with bindingoffset
+  % bindingoffset=0.5cm,
+  %% Text width should be adjust such that there are 60 to 90 characters per
+  %% line.
+  textwidth=13cm,
+  vmargin={3cm,3cm},
+}
+
+\thesisset{
+  %% Adjust the logo
+}
+
+%% Adjust the primary colour
+% \definecolor{primary}{cmyk}{1,0.57,0,0.40}
+
+\usepackage{setspace}
+\onehalfspacing
+
+%% Language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[UKenglish]{babel} % Set up the language
+\usepackage{csquotes}
+\usepackage{siunitx}          % Provides \SI{1}{\metre}, also \ang{90}
+
+\sisetup{
+  range-units=single,
+  list-units=single,
+}
+
+%% Formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumitem}  % Allows for easy modifications to lists
+
+%% Graphics & Figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}   % Allow graphics to be included
+\usepackage{subcaption} % Subfigures inside a figure
+
+% Keep all pictures in the './images/' sub-directory
+\graphicspath{{./images/}}
+
+\usepackage{tikz}       % Powerful drawing language
+\usepackage{pgfplots}   % Plotting with LaTeX
+\pgfplotsset{compat=1.14}
+
+%% Math Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}   % The core math package
+\usepackage{amssymb}   % Defines additional math fonts
+\usepackage{mathtools} % Various extra maths functions
+% \usepackage{autonum}   % Only number referenced equations (must be loaded after cleverref)
+
+%% Define \withnumber which forces the line to have number
+\newcommand{\withnumber}{\refstepcounter{equation}\tag{\theequation}}
+
+%% Allows page breaks in math (1 = avoid if possible, 4 = whenever)
+%% Page breaks can be avoided at particular places by using \\*
+\allowdisplaybreaks[2]
+
+%% Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tabularx}  % Improved tabular environment
+\usepackage{longtable} % Multipage tables
+\usepackage{array}     % New column types, including >x<
+\usepackage{booktabs}  % Provides nicer horizontal lines
+\usepackage{multirow}  % Allows cells to span multiple rows
+%\usepackage{longtable} % Allows for tables to span multiple pages
+
+%% Define the maths version of clr columns
+\newcolumntype{C}{>{\(}c<{\)}}
+\newcolumntype{L}{>{\(}l<{\)}}
+\newcolumntype{R}{>{\(}r<{\)}}
+
+%% Inline Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{minted}
+
+%% Other Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[version=4]{mhchem}     % Chemistry formatting
+\usepackage{pageslts}              % Reference the last page
+\usepackage[perpage]{footmisc}     % Customize footnotes
+
+%% The following packages must be loaded in a specific order
+\usepackage{hyperref}    % Automatically inserts hyperlinks
+\usepackage{cleveref}    % Use `\cref` to reference anything
+\usepackage{autonum}     % Only enumerate referenced equations
+
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% hyperref should be loaded first
+\usepackage[
+    autocite=inline,
+    backend=biber,
+    biblabel=brackets,
+    doi=true,
+    eprint=true,
+    maxbibnames=2,
+    maxcitenames=4,
+    style=phys,
+]{biblatex}
+
+\addbibresource{references.bib}
+
+\defbibheading{bibliography}[\bibname]
+{%
+  \chapter{\bibname}
+}
+
+\renewcommand\bibfont{\small}
+
+%% Other modifications
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% MWE provides a lot of useful command for minimal working examples
+\usepackage{mwe}
+
+%% Don't display subsections in the Table of Contents
+% \setcounter{tocdepth}{1}
+
+%% Documentation-specific
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The following section is used for the documentatino and is not otherwise
+%% needed.  It should be deleted if you do not use it.
+
+%% LaTeX Documentations
+\usepackage{doc}
+\usepackage{makeidx}
+
+%% The doc package overwrites \maketitle, so we restore it to use the thesis
+%% class' title.
+\makeatletter
+\renewcommand*\maketitle{\thesis@maketitle}
+\makeatother
+
+%% The \marg, \oarg and \parg functions are defined by the `ltxdoc` class, but
+%% not the `doc` package, so they have to be defined here.
+\providecommand\marg[1]{%
+  {\ttfamily\char`\{}\meta{#1}{\ttfamily\char`\}}}
+\providecommand\oarg[1]{%
+  {\ttfamily[}\meta{#1}{\ttfamily]}}
+\providecommand\parg[1]{%
+  {\ttfamily(}\meta{#1}{\ttfamily)}}
+
+%% Load the pgfmanual macros
+\IfFileExists{pgfmanual-en-macros}{
+  \let\attribute\relax
+  \input{pgfmanual-en-macros}
+}{
+  \PackageError{thesis-documentation}{
+    This document requires the file pgfmanual-en-macros.tex (distributed with
+    pgf) to compile.  Please place a copy (or link) of that file in the current
+    directory
+  }{}
+}
+
+\makeindex
+
+\pgfkeys{
+  /pdflinks/search key prefixes in={/thesis/}
+  /pdflinks/internal link prefix=/thesis,
+  %
+  /pdflinks/warnings=false,
+  % for debugging:
+  /pdflinks/show labels=false,
+}
+
+%% Center codeexample
+\makeatletter
+\let\codeexample@orig=\codeexample
+\let\endcodeexample@orig=\endcodeexample
+\def\codeexample{
+  \begin{center}
+    \codeexample@orig
+}
+\def\endcodeexample{
+    \endcodeexample@orig
+  \end{center}
+}
+
+%% Introduce a new font key
+\newenvironment{fontkey}[1]{
+  \begin{pgfmanualentry}
+    \def\extrakeytext{font, }
+    \extractkey#1\@nil%
+    \pgfmanualbody
+}{%
+  \end{pgfmanualentry}
+}
+\newenvironment{fontkeylist}[2][]{%
+  \begin{pgfmanualentry}
+    \def\extrakeytext{font, }%
+  \foreach \xx in {#2} {%
+    \expandafter\insertpathifneeded\expandafter{\xx}{#1}%
+    \expandafter\extractkey\mykey\@nil%
+  }%
+  \pgfmanualbody
+}{%
+  \end{pgfmanualentry}
+}%
+
+
+%% Adjust the Index to be a chapter
+\def\index@prologue{\chapter{Index}}
+\makeatother
+
+\providecommand*\LuaLaTeX{Lua\LaTeX}
+
+%% Document Information
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\logo{\includegraphics[width=0.2\paperwidth]{example-image-a}}
+\university{The University of Templates}
+\department{School of Theses}
+\degreetitle{Doctor of Philosophy}
+
+%%
+\title{\texorpdfstring{%
+    Thesis Template%
+  }{%
+    Thesis Template%
+  }}
+\subtitle{An example in practice}
+
+\author{Joshua}{Ellis}
+\orcid{0000-0003-2556-1536}
+\supervisor{John}{Smith}
+\supervisor{Jane}{Doe}
+
+\subject{LaTeX thesis class}
+\keywords{LaTeX class; template}
+
+%% Include Only
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \includeonly{
+%   chapters/documentation
+% }
+
+%% Document Start
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\pagenumbering{Alph}
+
+\maketitle
+
+\cleardoublepage
+\pagenumbering{roman}
+
+%% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section*{Abstract}
+
+\lipsum[1]
+
+%% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Acknowledgements}
+
+\lipsum[3]
+
+%% Statement of Contribution
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Statement of Contribution}
+
+\lipsum[10]
+
+%% Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+
+\tableofcontents
+
+%% Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\pagenumbering{arabic}
+
+\include{chapters/documentation}
+\include{chapters/lorem}
+\include{chapters/ipsum}
+
+\appendix
+\include{chapters/appendix}
+
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\pagestyle{plain}
+\twocolumn
+\printbibliography
+
+%% Index (for the documentation keys)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\printindex
+
+
+\end{document}

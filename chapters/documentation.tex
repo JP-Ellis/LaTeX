@@ -1,0 +1,502 @@
+\chapter{Documentation}
+
+\thesislettrine{T}{his thesis class} was developed for my masters thesis, and I
+have now made it public so that others may use.  The class itself is based on
+|scrreprt| from the \href{https://www.ctan.org/pkg/koma-script}{KOMA-Script
+  bundle}, and if compiled with \LuaLaTeX{} this thesis template uses the free
+\href{http://www.georgduffner.at/ebgaramond/}{\emph{EB Garamond}} font by Georg
+Duffner.
+
+Since multiple compilation runs are usually required in order to get all the
+cross-references correct (and then there's |biber| for the bibliography, maybe
+|makeglossaries| if you have a glosary, etc.), I recommend using a compilation
+tool such as \href{https://www.ctan.org/pkg/latexmk}{|latexmk|},
+\href{https://launchpad.net/rubber/}{Rubber} or
+\href{https://www.ctan.org/pkg/arara}{arara}.  Included with this template is a
+|.latexmkrc| configuration which uses \LuaLaTeX{} by default and is capable of
+handling externalized Ti\emph{k}Z images.  To compile the thesis with |latexmk|,
+it is just a matter of typing |latexmk thesis.tex| in the command line (or
+setting up your favourite \textsc{ide} to do this for you).
+
+Since a thesis will likely become quite a big document, it is recommended to
+split it across multiple files and then using |\include| to combine them in the
+main document.  The advantaged of using |\include| over |\input| is that each
+included file has its own |.aux| file associated with it (which stores
+information about sections, labels, links, \dots).  It is then possible to use
+|\includeonly| in the preamble so that only certain files are included, but this
+still allows cross-references to work properly.
+
+\begin{codeexample}[execute code=false]
+\documentclass{thesis}
+\includeonly{
+  chapters/introduction,
+  chapters/documentation
+}
+\begin{document}
+\include{chapters/introduction}
+\include{chapters/documentation}
+\include{chapter/lorem}
+\include{chapter/ipsum}
+\include{chapter/conclusion}
+\end{document}
+\end{codeexample}
+
+
+\section{Customizations}
+\label{sec:customizations}
+
+This thesis class makes use `keys' and `styles' in the same as a lot of
+Ti\emph{k}Z packages.  This allows for many customizations to be done easily and
+consistently.  The various keys are defined below along with descriptions of
+what each does.  They can be customized using the |\thesisset| command.
+
+\begin{command}{\thesisset\marg{keys}}
+  This facilitates the change of thesis keys and styles and by default will
+  adjust keys in the |/thesis| family of keys.
+
+\begin{codeexample}[execute code=false]
+\thesisset{
+  title/logo={
+    \includegraphics[width=6cm]{my-university-logo.png}
+  },
+  title/logo skip=3cm,
+}
+\end{codeexample}
+\end{command}
+
+There are a few cases where customizations are handled by other packages, or
+where commands are more appropriate.
+
+\subsection{Font Handling}
+\label{subsec:font_handling}
+
+The thesis template makes use of a few font, especially in the title, and in
+order to handle all these fonts and switch between them easily, a convenience
+functions are introduced.
+
+At the core of all this is the |font| handler.  A key can be designated as a
+font with |.is font| and can be subsequently accessed with |\thesisgetfont| or
+|\thesisfont|.
+
+\begin{handler}{.is font}
+  This defines a particular key to be an actual font.  This creates a new family
+  with the given key, and defines the following subkeys with default values.
+  The font can then be used in conjunction with |\thesisgetfont| and
+  |\thesisfont|.
+
+  Since the handler simply turns the key into a family of keys, it is possible
+  to add additional subkeys without affecting the functionality of the font
+  key.  For example:
+
+  \begin{codeexample}[]
+  \thesisset{
+    cormorant/.is font,
+    cormorant/font=\fontspec{Cormorant},
+    cormorant/color=red!75!blue,
+    cormorant/shape=\scshape,
+    % The following is NOT part of the font keys
+    cormorant/text/.initial={I'm in Cormorant!}
+  }
+  \thesisgetfont{cormorant}{\thesisget{cormorant/text}}
+  \end{codeexample}
+
+  The subkeys defined, along with their respective default values, are:
+  \begin{description}[font=\normalfont]
+  \item[\marg{key}|/size|] (default |1em|) \newline
+    Stores the size (with units) of the font;
+  \item[\marg{key}|/font|] (default |\normalfont|) \newline
+    Defines the font.  Can be used in conjunction with |fontspec|'s |\fontspec|
+    command;
+  \item[\marg{key}|/color|] (default |black|) \newline
+    Changes the colour;
+  \item[\marg{key}|/shape|] (default |\upshape|) \newline
+    Adjusts the font shape (i.e. |\itshape|, |\scshape|);
+  \item[\marg{key}|/series|] (default |\mdseries|) \newline
+    Changes the font series (i.e. |\bfseries|, |\mdseries|).
+  \end{description}
+\end{handler}
+
+\begin{command}{\thesisgetfont\marg{font key}}
+  This fetches a font key (that is, one defined with |.is font|), and applies
+  the corresponding font to the current context.  This command is analogous to
+  commands such as |\bfseries|, |\scshape|, \dots{} in that they will apply to
+  the \emph{entire} context and thus should be used within an environment and/or
+  braces |{}| in order to restrict the extent of the command.
+
+\begin{codeexample}[]
+\thesisset{
+  cormorant/.is font,
+  cormorant/font=\fontspec{Cormorant},
+  cormorant/color=red!75!blue,
+  cormorant/shape=\scshape,
+}
+{\thesisgetfont{cormorant} Hello, World!} Goodbye
+\end{codeexample}
+\end{command}
+
+\begin{command}{\thesisfont\marg{font key}\marg{text}}
+  This fetches a font key (that is, one defined with |.is font|), and applies
+  the corresponding font to the specified text.  This command is analogous to
+  commands such as |\textbf|\marg{text}, |\textsc|\marg{text}, \dots{} in that
+  they apply only the the specified text.
+
+\begin{codeexample}[]
+\thesisset{
+  cormorant/.is font,
+  cormorant/font=\fontspec{Cormorant},
+  cormorant/color=red!25!blue,
+  cormorant/shape=\scshape,
+}
+\thesisfont{cormorant}{Hello, World!} Goodbye
+\end{codeexample}
+\end{command}
+
+
+\section{Document Information}
+\label{sec:document_information}
+
+Information about authors, supervisors, title, \dots{} should be set in the
+preamble using the commands provided below or by setting the appropriate key.
+If needed, the values can subsequently be accessed from the key.  In order to be
+compatible with the usual way \LaTeX{} handles this information, the associated
+|\@...| command is also defined
+
+\begin{keylist}{
+    /thesis/author/first name,
+    /thesis/author/last name}
+  Stores the author's first and last name.
+
+  \begin{command}{\author\marg{first name}\marg{last name}}
+    A convenience function to set the author.
+  \end{command}
+\end{keylist}
+
+\begin{key}{/thesis/author/orcid}
+  Stores the author's \textsc{Orcid}.
+
+  \begin{command}{\orcid\marg{orcid}}
+    A convenience function to set the \textsc{Orcid}.
+  \end{command}
+\end{key}
+
+\begin{keylist}{
+    /thesis/supervisors/\meta{count}/first name,
+    /thesis/supervisors/\meta{count}/last name}
+  Stores the supervisor's first and last name, where \meta{count} is an integer
+  (starting from 1) allowing for multiple supervisors to be handled.  The
+  information should always be set with the |\supervisor| command.
+
+  Internally, the number of supervisors in total is recorded in the counter
+  |supervisorcount|.  It is then possible to programmatically access each
+  supervisor with:
+
+\begin{codeexample}[]
+\foreach \i in {1, ..., \arabic{supervisorcount}} {
+  \thesisget{supervisors/\i/first name}
+  ~\thesisget{supervisors/\i/last name}
+}
+\end{codeexample}
+
+  \begin{command}{\supervisor\marg{first name}\marg{last name}}
+    A convenience function to input supervisors.  This automatically handles the
+    mechanics to keep track of the number of supervisors and is the preferred
+    way to set the information.  The order in which the supervisors are
+    specified is kept.
+  \end{command}
+\end{keylist}
+
+\begin{key}{/thesis/logo}
+  Stores the code for the logo.  Typically, this will be |\includegraphics{...}|.
+
+  \begin{command}{\logo\marg{code}}
+    A convenience function to set the logo.
+  \end{command}
+\end{key}
+
+\begin{key}{/thesis/degree title}
+  Stores the degree title.
+
+  \begin{command}{\degreetitle\marg{text}}
+    A convenience function to set the degree title
+  \end{command}
+\end{key}
+
+\begin{key}{/thesis/university}
+  Stores the university name.
+
+  \begin{command}{\university\marg{text}}
+    A convenience function to set the university name
+  \end{command}
+\end{key}
+
+\begin{key}{/thesis/department}
+  Stores the university department.
+
+  \begin{command}{\department\marg{text}}
+    A convenience function to set the university department.
+  \end{command}
+\end{key}
+
+\begin{key}{/thesis/subject}
+  Stores the subject.  This is used primarily to set the |subject| property in
+  the \textsc{pdf}.
+
+  \begin{command}{\subject\marg{text}}
+    A convenience function to set the subject.
+  \end{command}
+\end{key}
+
+\begin{key}{/thesis/keywords}
+  Stores a list of keywords relating to the thesis.  This is used primarily to
+  set the |keywords| property in the \textsc{pdf}.
+
+  \begin{command}{\keywords\marg{text}}
+    A convenience function to set the keywords.
+  \end{command}
+\end{key}
+
+
+\section{Formatting}
+\label{sec:formatting}
+
+The |thesis| class is based on the |scrreprt| class from the
+\href{https://www.ctan.org/pkg/koma-script}{KOMA-Script bundle}.  The |thesis|
+customizes a lot of the formatting from the |scrreprt|, but these can always be
+adjusted further in the preamble of the thesis.  In particular, the font and
+formatting of section titles can be adjust with the |\setkomafont| command.
+
+The formatting of the title can be extensively adjusted using keys provided by
+the |thesis| class, as documented in \cref{subsec:title_page}.  There are other
+miscellaneous features provided by the font, such as lettrines in
+\cref{subsec:lettrines}.
+
+\subsection{Draft Mode}
+\label{subsec:draft_mode}
+
+Since a thesis can take a long time to compile, it can be worthwhile to enable
+|draft| mode by adding |draft| as an option to the document class:
+
+\begin{codeexample}[execute code=false]
+\documentclass[draft]{thesis}
+\end{codeexample}
+
+When draft mode is enabled, the |thesis| class will automatically add line
+numbers and highlight certain errors with a black box near the error.  More
+importantly, certain features which are known to significantly increase
+compilation time are disabled.  Some changes include:
+\begin{itemize}
+\item Most features by \href{http://ctan.org/pkg/microtype}{|microtype|} are
+  disabled;
+\item Hyperlinks are not generated by
+  \href{http://ctan.org/pkg/hyperref}{|hyperref|};
+\item Images are replaced by placeholders.
+\end{itemize}
+
+When the final version of the document is to be generated, |draft| should be
+replaced with |final|:
+
+\begin{codeexample}[execute code=false]
+\documentclass[final]{thesis}
+\end{codeexample}
+
+This ensures that all the features are enabled.
+
+\subsection{Page Layout}
+\label{subsec:page_layout}
+
+The page layout can be adjusted using the |\geometry| command from the extensive
+\href{http://ctan.org/pkg/geometry}{|geometry|} package.  Please refer to the
+|geometry| documentation for a full list of all of its capabilities.  As a rule
+of thumb (and ultimately, it is ultimately a matter of taste), it is advisable
+to set the length of each line so that there are no more than 60--90 characters
+as the line length is long enough to read fairly fast without being so long that
+the eye can't find the start of the next line.  The text width can be adjusted
+|textwidth| key which will adjust the margins automatically to fit.
+
+\begin{codeexample}[execute code=false]
+\geometry{
+  textwidth=13cm,
+  vmargin={3cm,3cm},
+}
+\end{codeexample}
+
+\subsection{Title Page}
+\label{subsec:title_page}
+
+The thesis title is generated using the |\maketitle| command and can be
+extensively customized using various keys provided by the |thesis| class, as
+described below.  The information for the title is obtained from the document
+information (see \cref{sec:document_information}).  All keys to customize the
+title page fall under |/thesis/title|, and since there are many components, they
+are further subcategorized as seen below.
+
+\subsubsection{Logo}
+\label{subsubsec:logo}
+
+\begin{key}{/thesis/title/logo/skip (initially 2em)}
+  The vertical skip after the logo when the logo is present.
+\end{key}
+
+\subsubsection{University Name and Department}
+\label{subsubsec:university_logo_name_and_department}
+
+\begin{fontkeylist}{/thesis/title/university/name, /thesis/title/university/department}
+  The font for the university name and department respectively.
+\end{fontkeylist}
+
+\begin{keylist}{
+    /thesis/title/university/name/skip (initially 1em),
+    /thesis/title/university/department/skip (initially 5em)}
+  The vertical skip after the university name and department respectively.  They
+  are only used if corresponding text is not empty.
+\end{keylist}
+
+\subsubsection{Title and Subtitle}
+\label{subsubsec:title_and_subtitle}
+
+\begin{fontkeylist}{
+    /thesis/title/title,
+    /thesis/title/subtitle}
+  The font for the thesis title and subtitle.
+\end{fontkeylist}
+
+\begin{key}{/thesis/title/title/skip (initially 5em)}
+  The vertical skip \emph{after both} title and subtitle.
+\end{key}
+
+\begin{key}{/thesis/title/subtitle/skip (initially 0.5em)}
+  The vertical skip \emph{between} the title and subtitle.
+\end{key}
+
+\subsubsection{Author}
+\label{subsubsec:author}
+
+\begin{fontkeylist}{
+    /thesis/title/author/description,
+    /thesis/title/author/first name,
+    /thesis/title/author/last name,
+    /thesis/title/author/orcid}
+  Specifies the font for the author description, the author's first and last
+  name, and the \textsc{orcid}.
+\end{fontkeylist}
+
+\begin{key}{/thesis/title/author/description/text (initially By)}
+  The text introducing the author.
+\end{key}
+
+\begin{key}{/thesis/title/author/separator (initially \string\space)}
+  The separator between the author's first and last name.
+\end{key}
+
+\begin{keylist}{
+    /thesis/title/author/description/skip (initially 0.2em),
+    /thesis/title/author/orcid/skip (initially -0.2em),
+    /thesis/title/author/skip (initially 3em)}
+  The vertical skip between the description text and the author's name, between
+  the author's name and the \textsc{orcid}, and after all the author's details
+  respectively.
+\end{keylist}
+
+\subsubsection{Supervisor}
+\label{subsubsec:supervisor}
+
+\begin{fontkeylist}{
+    /thesis/supervisor/description,
+    /thesis/supervisor/first name,
+    /thesis/supervisor/last name}
+  Specifies the font for the supervisor description, and the supervisor(s)'s
+  first and last name.
+\end{fontkeylist}
+
+\begin{key}{/thesis/supervisor/description/text (initially Under the supervision of)}
+  The text introducing the supervisor(s).
+\end{key}
+
+\begin{key}{/thesis/supervisor/separator (initially \string\space)}
+  The separator between each supervisor's first and last name.
+\end{key}
+
+\begin{keylist}{
+    /thesis/supervisor/description/skip (initially 0.2em),
+    /thesis/supervisor/inter skip (initially 0pt),
+    /thesis/supervisor/skip (initially 3em)}
+  The vertical skip between the description and the first supervisor's name,
+  between each supervisor, and between the last supervisor and after the last supervisor.
+\end{keylist}
+
+\subsubsection{Degree}
+\label{subsubsec:degree}
+
+\begin{fontkeylist}{
+    /thesis/degree/description,
+    /thesis/degree/name}
+  Specifies the font for the degree description and the degree name.
+\end{fontkeylist}
+
+\begin{key}{/thesis/degree/description/text (initially Submitted in the fulfillment of)}
+  The text introducing the degree.
+\end{key}
+
+\begin{keylist}{
+    /thesis/degree/description/skip (initially 0.2em),
+    /thesis/degree/skip (initially 0em plus 1 fill)}
+  The vertical skip between the degree description
+\end{keylist}
+
+\subsubsection{Date}
+\label{subsubsec:date}
+
+\begin{fontkey}{/thesis/title/date}
+  Adjust the font for the date.
+\end{fontkey}
+
+\subsection{Lettrines}
+\label{subsec:lettrines}
+
+\begin{command}{\thesislettrine\marg{letter}\marg{text}}
+  Inserts a \href{https://en.wikipedia.org/wiki/Initial}{lettrine} (or
+  \emph{initial} or \emph{drop cap}) at the start of a paragraph, and formats
+  the remaining text specified in \marg{text} using small caps.  Conventionally,
+  it is either the rest of the first word or noun phrase that is included the
+  \marg{text}.
+
+  \hfill\begin{minipage}{0.9\textwidth}
+    % For some reason, the lettrine doesn't display nicely from the codeexample.
+    \thesislettrine{A}{simple example of a lettrine} in use.  \lipsum[2]
+  \end{minipage}
+
+\begin{codeexample}[execute code=false]
+\thesislettrine{A}{simple example of a lettrine} in use.  \lipsum[2]
+\end{codeexample}
+
+  If \LuaLaTeX{} is available, the lettrine will make use of the EB Garamond
+  lettrine glyphs.  EB Garamond provides two separate fonts for the foreground
+  and background of the lettrines; alternative fonts can be used by adjusting
+  |\lettrinebg| and |\lettrinefg| (see below).  If \LuaLaTeX{} is not available,
+  the |\thesislettrine| will simply insert a large first character and use the
+  primary colour.
+
+  \hfill\begin{minipage}{0.9\textwidth}
+    % For some reason, the lettrine doesn't display nicely from the codeexample.
+    \setcounter{DefaultLines}{3}
+    \renewcommand{\DefaultLoversize}{0}
+    \renewcommand{\DefaultLraise}{0}
+    \setlength{\DefaultNindent}{0.5ex}
+    \lettrine{\textcolor{primary}{A}}{simple example of a lettrine} in use.  \lipsum[2]
+  \end{minipage}
+
+\begin{codeexample}[execute code=false]
+\thesislettrine{A}{simple example of a lettrine} in use.  \lipsum[2]
+\end{codeexample}
+
+  Internally, |\thesislettrine| makes use of the |\lettrine| command from the
+  \href{http://ctan.org/pkg/lettrine}{|lettrine|} package which provides various
+  other commands to customize the appearance of the lettrines.  In using
+  \LuaLaTeX{}, the foreground and background fonts can be adjusted using the
+  following two commands:
+
+\end{command}
+
+% Local Variables:
+% TeX-master: "../thesis.tex"
+% End:
