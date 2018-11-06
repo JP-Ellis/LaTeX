@@ -319,9 +319,10 @@
   \providecommand*{\dd}{\mathop{}\!\mathrm{d}}
   \def\@ifchevron#1{\@ifnextchar ^{\@firstoftwo{#1}}}
   \def\ddbar{%
-    \@ifchevron{\ddbar@opt}{\ddbar@opt{}}%
+    \@ifchevron{\ddbar@opt}{\ddbar@noopt}%
   }
   \def\ddbar@opt#1#2{\frac{\dd^{#1} #2}{(2\pi)^{#1}}}
+  \def\ddbar@noopt#1{\frac{\dd #1}{2\pi}}
   \providecommand*{\dD}{\mathop{}\!\mathrm{D}}
 
   %% A shortcut for derivative (partial \pfrac and exact \ddfrac)
